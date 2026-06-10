@@ -35,6 +35,13 @@ describe GoFishSocketServer do
     @server.stop
     @clients.each(&:close)
   end
+
+  context 'before it is started' do
+    it 'is not listening on a port' do
+      @server.stop
+      expect { MockGoFishSocketClient.new(@server.port_number) }.to raise_error(Errno::ECONNREFUSED)
+    end
+  end
 end
 
 def create_client(name) # rubocop:disable Lint/UnusedMethodArgument
