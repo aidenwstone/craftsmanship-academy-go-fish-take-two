@@ -10,4 +10,8 @@ class Client
     socket.read_nonblock(1000).chomp
   rescue IO::WaitReadable # rubocop:disable Lint/SuppressedException
   end
+
+  def write_socket(message)
+    socket.puts message
+  end
 end

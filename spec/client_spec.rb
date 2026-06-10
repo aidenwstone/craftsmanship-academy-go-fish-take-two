@@ -38,6 +38,19 @@ describe Client do # rubocop:disable Metrics/BlockLength
       end
     end
   end
+
+  describe '#write_socket' do
+    it 'writes a message to the socket' do
+      mock_client = create_client('Player')
+      message = 'Hello, world!'
+      newline_char = "\n"
+
+      mock_client.capture_output
+      server_client.write_socket message
+
+      expect(mock_client.capture_output).to eq message + newline_char
+    end
+  end
 end
 
 def create_client(name) # rubocop:disable Lint/UnusedMethodArgument
