@@ -1,5 +1,4 @@
 require_relative '../lib/go_fish_socket_server'
-require_relative '../lib/client'
 require_relative 'mock_go_fish_socket_client'
 
 describe GoFishSocketServer do # rubocop:disable Metrics/BlockLength
