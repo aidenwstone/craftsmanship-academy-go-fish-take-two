@@ -39,6 +39,53 @@ describe GoFishSocketServer do # rubocop:disable Metrics/BlockLength
       expect(client.capture_output).to match welcome_regex
     end
   end
+
+  describe '#create_game_if_possible' do # rubocop:disable Metrics/BlockLength
+    context 'when one client joins' do
+      before do
+        create_client('Player 1')
+      end
+
+      it 'does not create a game' do
+        @server.create_game_if_possible
+
+        expect(@server.game_sessions.size).to be_zero
+      end
+
+      it 'returns nil' do
+        expect(@server.create_game_if_possible).to be_nil
+      end
+    end
+
+    context 'when a second client joins' do
+      let!(:client1) { create_client('Player 1') }
+      let!(:client2) { create_client('Player 2') }
+
+      it 'creates a new game session' do
+        game_count = @server.game_sessions.size
+
+        @server.create_game_if_possible
+
+        expect(@server.game_sessions.size).to be game_count + 1
+        expect(@server.game_sessions.last).to be_a GameSession
+      end
+
+      it 'sends game starting message to clients' do
+        starting_regex = /starting/i
+
+        client1.capture_output
+        client2.capture_output
+        @server.create_game_if_possible
+
+        expect(client1.capture_output).to match starting_regex
+        expect(client2.capture_output).to match starting_regex
+      end
+
+      it 'returns the game session object' do
+        expect(@server.create_game_if_possible).to be_a GameSession
+      end
+    end
+  end
 end
 
 def create_client(name) # rubocop:disable Lint/UnusedMethodArgument
