@@ -3,6 +3,8 @@ require_relative 'playing_card'
 class CardDeck
   attr_reader :cards
 
+  STARTING_DECK_SIZE = 52
+
   def initialize
     @cards = PlayingCard::SUITS.flat_map do |suit|
       PlayingCard::RANKS.map do |rank|
