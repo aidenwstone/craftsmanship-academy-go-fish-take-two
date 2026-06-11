@@ -4,7 +4,7 @@ require_relative 'mock_go_fish_socket_client'
 
 describe Client do # rubocop:disable Metrics/BlockLength
   let(:socket) { TCPSocket.new('localhost', 3336) }
-  let(:server_client) { @server.clients.last }
+  let(:client) { @server.clients.last }
 
   before(:each) do
     @clients = []
@@ -26,7 +26,7 @@ describe Client do # rubocop:disable Metrics/BlockLength
 
         mock_client.provide_input message
 
-        expect(server_client.read_socket).to eq message
+        expect(client.read_socket).to eq message
       end
     end
 
@@ -34,7 +34,7 @@ describe Client do # rubocop:disable Metrics/BlockLength
       it 'returns nil' do
         create_client('Player')
 
-        expect(server_client.read_socket).to be_nil
+        expect(client.read_socket).to be_nil
       end
     end
   end
@@ -46,7 +46,7 @@ describe Client do # rubocop:disable Metrics/BlockLength
       newline_char = "\n"
 
       mock_client.capture_output
-      server_client.write_socket message
+      client.write_socket message
 
       expect(mock_client.capture_output).to eq message + newline_char
     end
