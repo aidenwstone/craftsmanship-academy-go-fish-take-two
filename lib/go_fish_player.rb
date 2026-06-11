@@ -1,9 +1,10 @@
 class GoFishPlayer
-  attr_reader :hand
+  attr_reader :id, :hand
 
   EMPTY_HAND_MESSAGE = 'You have no cards in your hand'.freeze
 
-  def initialize
+  def initialize(id)
+    @id = id
     @hand = []
   end
 

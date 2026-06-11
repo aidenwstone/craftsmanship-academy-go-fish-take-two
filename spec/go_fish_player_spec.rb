@@ -2,7 +2,7 @@ require_relative '../lib/go_fish_player'
 require_relative '../lib/playing_card'
 
 describe GoFishPlayer do # rubocop:disable Metrics/BlockLength
-  let!(:player) { GoFishPlayer.new }
+  let!(:player) { GoFishPlayer.new(1) }
   let(:card1) { PlayingCard.new('A', 'Diamonds') }
   let(:card2) { PlayingCard.new('5', 'Hearts') }
 

@@ -4,8 +4,8 @@ require_relative '../lib/go_fish_player'
 describe GoFishGame do # rubocop:disable Metrics/BlockLength
   let(:players) do
     [
-      GoFishPlayer.new,
-      GoFishPlayer.new
+      GoFishPlayer.new(1),
+      GoFishPlayer.new(2)
     ]
   end
   let(:game) { GoFishGame.new(players) }
@@ -24,7 +24,7 @@ describe GoFishGame do # rubocop:disable Metrics/BlockLength
       let(:deal_amount) { 7 }
 
       before do
-        game.players.push GoFishPlayer.new
+        game.players.push GoFishPlayer.new(3)
       end
 
       it 'deals out 7 cards to each player from the deck' do
@@ -41,8 +41,8 @@ describe GoFishGame do # rubocop:disable Metrics/BlockLength
       let(:deal_amount) { 5 }
 
       before do
-        game.players.push GoFishPlayer.new
-        game.players.push GoFishPlayer.new
+        game.players.push GoFishPlayer.new(3)
+        game.players.push GoFishPlayer.new(4)
       end
 
       it 'deals out 5 cards to each player from the deck' do
