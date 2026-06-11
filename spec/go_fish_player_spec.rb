@@ -27,6 +27,39 @@ describe GoFishPlayer do # rubocop:disable Metrics/BlockLength
     end
   end
 
+  describe '#take_cards_of_rank' do
+    let(:rank) { 'A' }
+
+    context "when the player's hand includes the rank in question" do
+      let(:cards_of_rank) do
+        [
+          PlayingCard.new('A', 'Spades'),
+          PlayingCard.new('A', 'Clubs')
+        ]
+      end
+      let(:other_card) { PlayingCard.new('7', 'Spades') }
+
+      before do
+        player.add_cards(cards_of_rank + [other_card])
+      end
+
+      it 'removes and returns the cards of that rank' do
+        expect(player.take_cards_of_rank(rank)).to match_array cards_of_rank
+        expect(player.hand).not_to include(*cards_of_rank)
+      end
+
+      it 'does not return other cards' do
+        expect(player.take_cards_of_rank(rank)).not_to include other_card
+      end
+    end
+
+    context "when the player's hand does not include the rank in question" do
+      it 'returns an empty array' do
+        expect(player.take_cards_of_rank(rank)).to be_empty
+      end
+    end
+  end
+
   describe '#formatted_hand' do
     context 'with no cards' do
       it 'returns an empty hand message' do
