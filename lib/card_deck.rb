@@ -20,4 +20,9 @@ class CardDeck
 
     cards.shift
   end
+
+  def shuffle
+    cards.shuffle!
+    self
+  end
 end

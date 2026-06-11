@@ -1,6 +1,6 @@
 require_relative '../lib/card_deck'
 
-describe CardDeck do
+describe CardDeck do # rubocop:disable Metrics/BlockLength
   let(:deck) { CardDeck.new }
 
   describe '#deal' do
@@ -25,6 +25,15 @@ describe CardDeck do
         expect(cards).to match_array(first_seven_cards)
         expect(deck.cards_left).to be deck_size - 7
       end
+    end
+  end
+
+  describe '#shuffle' do
+    let(:shuffled_deck) { deck.shuffle }
+    let(:fresh_deck) { CardDeck.new }
+
+    it 'shuffles the deck' do
+      expect(shuffled_deck.cards).not_to eq fresh_deck.cards
     end
   end
 end
