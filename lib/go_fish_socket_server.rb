@@ -35,6 +35,7 @@ class GoFishSocketServer
     clients << client
 
     client.write_socket 'Welcome to Go Fish!'
+  rescue IO::WaitReadable # rubocop:disable Lint/SuppressedException
   end
 
   def create_game_if_possible
