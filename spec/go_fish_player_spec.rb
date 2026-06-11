@@ -17,8 +17,10 @@ describe GoFishPlayer do # rubocop:disable Metrics/BlockLength
 
     context 'with multiple cards' do
       it 'adds the card to the hand' do
+        current_hand_size = player.hand.size
+
         player.add_cards([card1, card2])
-        expect(player.hand.length).to eq 2
+        expect(player.hand.length).to eq current_hand_size + 2
         expect(player.hand).to include card1
         expect(player.hand).to include card2
       end
