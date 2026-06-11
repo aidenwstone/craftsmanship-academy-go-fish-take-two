@@ -12,4 +12,8 @@ class GameSession
       end
     )
   end
+
+  def run
+    game.start
+  end
 end

@@ -52,4 +52,8 @@ class GoFishSocketServer
 
     game_session
   end
+
+  def run_game(game_session)
+    game_session.run
+  end
 end
