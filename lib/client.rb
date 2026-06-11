@@ -1,8 +1,9 @@
 class Client
-  attr_reader :socket
+  attr_reader :socket, :id
 
-  def initialize(socket)
+  def initialize(socket, id)
     @socket = socket
+    @id = id
   end
 
   def read_socket(delay = 0.1)

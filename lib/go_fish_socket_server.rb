@@ -30,7 +30,8 @@ class GoFishSocketServer
 
   def accept_new_client
     socket = server.accept_nonblock
-    client = Client.new(socket)
+    client_id = clients.size + 1
+    client = Client.new(socket, client_id)
 
     clients << client
 
