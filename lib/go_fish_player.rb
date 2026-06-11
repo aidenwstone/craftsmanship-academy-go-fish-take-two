@@ -1,6 +1,8 @@
 class GoFishPlayer
   attr_reader :hand
 
+  EMPTY_HAND_MESSAGE = 'You have no cards in your hand'.freeze
+
   def initialize
     @hand = []
   end
@@ -11,7 +13,7 @@ class GoFishPlayer
 
   def formatted_hand
     if hand.empty?
-      'You have no cards in your hand'
+      EMPTY_HAND_MESSAGE
     else
       hand.reduce do |result, card|
         "#{result}\n#{card}"
