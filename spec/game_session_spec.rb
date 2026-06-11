@@ -26,8 +26,11 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
     let(:chosen_rank) { 'A' }
     let(:chosen_opponent_id) { '2' }
 
+    before do
+      game_session.game.start
+    end
+
     it 'shows the players their hands' do
-      pending
       hand_regex = /Spades|Clubs|Hearts|Diamonds/
 
       # Shows introductory message
