@@ -10,4 +10,14 @@ class CardDeck
       end
     end
   end
+
+  def cards_left
+    cards.size
+  end
+
+  def deal(amount = nil)
+    return cards.shift(amount) if amount
+
+    cards.shift
+  end
 end
