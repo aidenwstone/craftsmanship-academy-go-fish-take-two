@@ -116,7 +116,7 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       game_session.run_turn
 
       expect(game_session.chosen_rank).to_not be_nil
-      expect(game_session.chosen_opponent).to_not be_nil
+      expect(game_session.chosen_opponent_id).to_not be_nil
       expect(mock_client1.capture_output).to be_empty
     end
 
