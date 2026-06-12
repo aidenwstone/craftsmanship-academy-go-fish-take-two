@@ -4,7 +4,7 @@ require_relative 'go_fish_player'
 class GameSession
   attr_reader :clients, :game
   attr_accessor :hands_shown, :rank_prompt_shown, :chosen_rank,
-                :chosen_opponent, :opponent_prompt_shown
+                :chosen_opponent_id, :opponent_prompt_shown
 
   def initialize(clients)
     @clients = clients
@@ -47,11 +47,11 @@ class GameSession
   end
 
   def prompt_for_opponent(client)
-    return chosen_opponent if chosen_opponent
+    return chosen_opponent_id if chosen_opponent_id
 
     client.write_socket 'Which opponent do you want to ask:' unless opponent_prompt_shown
     self.opponent_prompt_shown = true
-    self.chosen_opponent = client.read_socket
+    self.chosen_opponent_id = client.read_socket
   end
 
   def player_from_client(client)
