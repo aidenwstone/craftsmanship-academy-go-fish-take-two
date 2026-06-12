@@ -26,8 +26,8 @@ class GoFishGame
     current_player.add_cards(cards) if cards.any?
     fished_card = go_fish if cards.empty?
 
-    end_turn(cards, fished_card, rank)
     add_result(player_in_question, rank, cards, fished_card)
+    end_turn(cards, fished_card, rank)
   end
 
   def current_player

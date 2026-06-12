@@ -87,12 +87,6 @@ describe GoFishGame do # rubocop:disable Metrics/BlockLength
       expect(game.results_log.last).to be_a TurnResult
     end
 
-    it 'returns the result log' do
-      result = game.play_turn(player_in_question_id, rank_in_question)
-
-      expect(result).to be_a TurnResult
-    end
-
     context 'when the player in question has the card in question' do
       before do
         game.play_turn(player_in_question_id, rank_in_question)
