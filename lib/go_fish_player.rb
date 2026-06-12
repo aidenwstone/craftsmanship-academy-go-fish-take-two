@@ -30,4 +30,8 @@ class GoFishPlayer
       end
     end
   end
+
+  def hand_size
+    hand.size
+  end
 end

@@ -81,4 +81,28 @@ describe GoFishPlayer do # rubocop:disable Metrics/BlockLength
       end
     end
   end
+
+  describe '#hand_size' do
+    context 'when the player has no cards' do
+      it 'returns 0' do
+        expect(player.hand_size).to be_zero
+      end
+    end
+
+    context 'when the player has 3 cards' do
+      let(:cards) do
+        [
+          PlayingCard.new('A', 'Spades'),
+          PlayingCard.new('7', 'Clubs'),
+          PlayingCard.new('5', 'Hearts')
+        ]
+      end
+
+      it 'returns 3' do
+        player.add_cards(cards)
+
+        expect(player.hand_size).to be 3
+      end
+    end
+  end
 end
