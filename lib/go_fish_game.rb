@@ -34,6 +34,10 @@ class GoFishGame
     players.first
   end
 
+  def last_result
+    results_log.last
+  end
+
   private
 
   def deal_cards
