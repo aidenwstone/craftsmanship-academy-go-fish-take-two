@@ -2,12 +2,9 @@ require_relative '../lib/go_fish_game'
 require_relative '../lib/go_fish_player'
 
 describe GoFishGame do # rubocop:disable Metrics/BlockLength
-  let(:players) do
-    [
-      GoFishPlayer.new(1),
-      GoFishPlayer.new(2)
-    ]
-  end
+  let(:player1) { GoFishPlayer.new(1) }
+  let(:player2) { GoFishPlayer.new(1) }
+  let(:players) { [player1, player2] }
   let(:game) { GoFishGame.new(players) }
 
   describe '#start' do # rubocop:disable Metrics/BlockLength
@@ -52,6 +49,22 @@ describe GoFishGame do # rubocop:disable Metrics/BlockLength
           expect(player.hand.size).to eq deal_amount
         end
         expect(game.deck.cards_left).to eq CardDeck::STARTING_DECK_SIZE - cards_given
+      end
+    end
+  end
+
+  describe '#current_player' do
+    context 'when player 1 is in the front of the queue' do
+      it 'returns player 1' do
+        expect(game.current_player).to be player1
+      end
+    end
+
+    context 'when player 2 is in the front of the queue' do
+      it 'returns player 2' do
+        game.players.rotate!
+
+        expect(game.current_player).to be player2
       end
     end
   end

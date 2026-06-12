@@ -17,6 +17,10 @@ class GoFishGame
     deal_cards
   end
 
+  def current_player
+    players.first
+  end
+
   private
 
   def deal_cards
