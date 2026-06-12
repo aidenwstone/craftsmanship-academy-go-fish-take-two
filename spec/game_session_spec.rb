@@ -49,8 +49,7 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       expect(mock_client2.capture_output).to be_empty
     end
 
-    it 'prompts current player for rank' do
-      skip
+    it 'prompts current player for rank once' do
       rank_regex = /which rank/i
 
       # Shows introductory message
@@ -58,14 +57,10 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       mock_client2.capture_output
       game_session.run_turn
       # Shows hands
-
-      mock_client1.capture_output
-      mock_client2.capture_output
-      game_session.run_turn
       # Prompts current player for rank
 
       expect(mock_client1.capture_output).to match rank_regex
-      expect(mock_client2.capture_output).to be_empty
+      expect(mock_client2.capture_output).not_to match rank_regex
 
       game_session.run_turn
       # Shows nothing
@@ -73,8 +68,19 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       expect(mock_client1.capture_output).to be_empty
     end
 
-    it 'prompts current player for opponent' do
-      skip
+    it 'prompts current player for rank and saves it' do
+      rank_input = 'K'
+      player_regex = /which.*opponent.*:/i
+
+      mock_client1.provide_input(rank_input)
+      mock_client1.capture_output
+      game_session.run_turn
+
+      expect(game_session.chosen_rank).to_not be_nil
+      expect(mock_client1.capture_output).to match player_regex
+    end
+
+    it 'prompts current player for opponent once' do
       opponent_regex = /which opponent/i
 
       # Shows introductory message
@@ -82,11 +88,9 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       mock_client2.capture_output
       game_session.run_turn
       # Shows hands
-
+      # Prompts current player for rank
       mock_client1.capture_output
       mock_client2.capture_output
-      game_session.run_turn
-      # Prompts current player for rank
 
       mock_client1.provide_input chosen_rank
       game_session.run_turn
@@ -101,6 +105,21 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       expect(mock_client1.capture_output).to be_empty
     end
 
+    it 'prompts current player for opponent and saves it' do
+      rank_input = 'K'
+      player_input = '2'
+
+      mock_client1.provide_input rank_input
+      game_session.run_turn
+      mock_client1.provide_input player_input
+      mock_client1.capture_output
+      game_session.run_turn
+
+      expect(game_session.chosen_rank).to_not be_nil
+      expect(game_session.chosen_opponent).to_not be_nil
+      expect(mock_client1.capture_output).to be_empty
+    end
+
     it 'announces the result' do
       skip
       result_regex = /asked for/
@@ -110,10 +129,6 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       mock_client2.capture_output
       game_session.run_turn
       # Shows hands
-
-      mock_client1.capture_output
-      mock_client2.capture_output
-      game_session.run_turn
       # Prompts current player for rank
 
       mock_client1.provide_input chosen_rank
