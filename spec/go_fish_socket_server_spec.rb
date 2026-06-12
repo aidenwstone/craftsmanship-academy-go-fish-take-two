@@ -90,7 +90,9 @@ end
 
 def create_client(name) # rubocop:disable Lint/UnusedMethodArgument
   client = MockGoFishSocketClient.new(@server.port_number)
+  sleep(0.1)
   @clients.push(client)
   @server.accept_new_client
+  sleep(0.1)
   client
 end
