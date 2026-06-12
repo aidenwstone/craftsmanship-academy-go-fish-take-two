@@ -78,13 +78,16 @@ describe GoFishGame do # rubocop:disable Metrics/BlockLength
       player2.add_cards([card])
     end
 
-    xit 'adds a new result log' do
+    it 'adds a new result log' do
+      result_log_size = game.results_log.size
+
       game.play_turn(player_in_question_id, rank_in_question)
 
+      expect(game.results_log.size).to eq result_log_size + 1
       expect(game.results_log.last).to be_a TurnResult
     end
 
-    xit 'returns the result log' do
+    it 'returns the result log' do
       result = game.play_turn(player_in_question_id, rank_in_question)
 
       expect(result).to be_a TurnResult

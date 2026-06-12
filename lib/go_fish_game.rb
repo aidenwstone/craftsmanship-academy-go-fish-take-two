@@ -1,7 +1,8 @@
 require_relative 'card_deck'
+require_relative 'turn_result'
 
 class GoFishGame
-  attr_reader :players, :deck
+  attr_reader :players, :deck, :results_log
 
   SMALL_GAME_MAX_SIZE = 3
   SMALL_GAME_DEAL_AMOUNT = 7
@@ -10,6 +11,7 @@ class GoFishGame
   def initialize(players)
     @players = players
     @deck = CardDeck.new
+    @results_log = []
   end
 
   def start
@@ -25,6 +27,7 @@ class GoFishGame
     fished_card = go_fish if cards.empty?
 
     end_turn(cards, fished_card, rank)
+    add_result(player_in_question, rank, cards, fished_card)
   end
 
   def current_player
@@ -57,5 +60,14 @@ class GoFishGame
 
   def end_turn(cards_taken, fished_card, rank_in_question)
     players.rotate! unless cards_taken.any? || fished_card.rank == rank_in_question
+  end
+
+  def add_result(player_in_question, rank, cards, fished_card)
+    turn_result = TurnResult.new(player: current_player, opponent: player_in_question,
+                                 rank_in_question: rank, cards_taken: cards,
+                                 fished_card: fished_card)
+
+    results_log << turn_result
+    turn_result
   end
 end
