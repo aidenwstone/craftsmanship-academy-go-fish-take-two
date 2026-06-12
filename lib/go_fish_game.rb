@@ -17,6 +17,16 @@ class GoFishGame
     deal_cards
   end
 
+  def play_turn(opponent_id, rank)
+    player_in_question = player_by_id(opponent_id.to_i)
+    cards = player_in_question.take_cards_of_rank(rank)
+
+    current_player.add_cards(cards) if cards.any?
+    fished_card = go_fish if cards.empty?
+
+    end_turn(cards, fished_card, rank)
+  end
+
   def current_player
     players.first
   end
@@ -32,5 +42,20 @@ class GoFishGame
 
   def deal_amount
     players.size <= SMALL_GAME_MAX_SIZE ? SMALL_GAME_DEAL_AMOUNT : LARGE_GAME_DEAL_AMOUNT
+  end
+
+  def player_by_id(id)
+    players.find { |player| player.id == id }
+  end
+
+  def go_fish
+    card = deck.deal
+    current_player.add_cards([card])
+
+    card
+  end
+
+  def end_turn(cards_taken, fished_card, rank_in_question)
+    players.rotate! unless cards_taken.any? || fished_card.rank == rank_in_question
   end
 end
