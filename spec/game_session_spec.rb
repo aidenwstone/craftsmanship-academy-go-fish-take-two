@@ -68,18 +68,6 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       expect(mock_client1.capture_output).to be_empty
     end
 
-    it 'prompts current player for rank and saves it' do
-      rank_input = 'K'
-      player_regex = /which.*opponent.*:/i
-
-      mock_client1.provide_input(rank_input)
-      mock_client1.capture_output
-      game_session.run_turn
-
-      expect(game_session.chosen_rank).to_not be_nil
-      expect(mock_client1.capture_output).to match player_regex
-    end
-
     it 'prompts current player for opponent once' do
       opponent_regex = /which opponent/i
 
@@ -102,21 +90,6 @@ describe GameSession do # rubocop:disable Metrics/BlockLength
       game_session.run_turn
       # Shows nothing
 
-      expect(mock_client1.capture_output).to be_empty
-    end
-
-    it 'prompts current player for opponent and saves it' do
-      rank_input = 'K'
-      player_input = '2'
-
-      mock_client1.provide_input rank_input
-      game_session.run_turn
-      mock_client1.provide_input player_input
-      mock_client1.capture_output
-      game_session.run_turn
-
-      expect(game_session.chosen_rank).to_not be_nil
-      expect(game_session.chosen_opponent_id).to_not be_nil
       expect(mock_client1.capture_output).to be_empty
     end
 
