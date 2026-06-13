@@ -27,7 +27,7 @@ describe TurnResult do # rubocop:disable Metrics/BlockLength
       end
 
       it 'returns a formatted success message' do
-        success_regex = /Player 1.*A of Spades.*A of Clubs.*Player 2/
+        success_regex = /Player 1.*Player 2.*A of Spades.*A of Clubs/
 
         expect(turn_result.formatted_message).to match success_regex
       end

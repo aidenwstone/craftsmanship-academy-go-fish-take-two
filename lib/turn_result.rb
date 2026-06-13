@@ -10,10 +10,12 @@ class TurnResult
   end
 
   def formatted_message
+    base_message = "Player #{player.id} asked for #{rank_in_question}'s from Player #{opponent.id}"
+
     if cards_taken.any?
-      "Player #{player.id} took #{cards_taken.join(', ')} from Player #{opponent.id}"
+      "#{base_message}, and took #{cards_taken.join(', ')}."
     else
-      "Player #{player.id} asked for #{rank_in_question}'s from Player #{opponent.id}, but had to go fish"
+      "#{base_message}, but had to go fish."
     end
   end
 end
